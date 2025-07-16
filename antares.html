@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nusantara Tech - Inovasi Digital untuk Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Optional: Particles.js for dynamic background. You'd need to download and link it. -->
+    <!-- <script src="path/to/particles.min.js"></script> -->
+
+    <style>
+      html.light {
+        --bg-main: #f8fafc;
+        --bg-secondary: #e2e8f0;
+        --text-main: #1e293b;
+        --text-secondary: #334155;
+        --card-bg: #fff;
+        --card-border: #cbd5e1;
+        --gradient-hero: radial-gradient(circle at top left, #e0e7ef, #cbd5e1);
+      }
+      html:not(.light) {
+        --bg-main: #0f172a;
+        --bg-secondary: #1e293b;
+        --text-main: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --card-bg: #1e293b;
+        --card-border: #334155;
+        --gradient-hero: radial-gradient(circle at top left, #1a202c, #0f172a);
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        /* Add a subtle noise texture to the body */
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.03'%3E%3Cpath d='M0 0h100v100H0V0zm10 10h80v80H10V10zm20 20h60v60H30V30zm10 10h40v40H40V40zm10 10h20v20H50V50z'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 100px 100px;
+        background-attachment: fixed; /* Keep the pattern fixed while scrolling */
+        background-color: var(--bg-main);
+        color: var(--text-main);
+      }
+
+      /* More vibrant text gradient with subtle shadow */
+      .text-gradient {
+        background: linear-gradient(to right, #00C6FF, #EE0979); /* A brighter, more dynamic blue-pink gradient */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 8px rgba(0, 198, 255, 0.3), 0 -2px 8px rgba(238, 9, 121, 0.3); /* Subtle glow effect */
+      }
+
+      /* Enhanced primary button with dynamic gradient shift on hover and subtle glow */
+      .btn-primary {
+        @apply relative inline-flex items-center justify-center overflow-hidden
+               px-8 py-3 rounded-full text-white font-semibold text-lg
+               bg-gradient-to-r from-blue-500 to-purple-600 /* Starting with a strong gradient */
+               shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105;
+        box-shadow: 0 5px 15px rgba(0, 198, 255, 0.2), 0 -5px 15px rgba(238, 9, 121, 0.2);
+        border: 2px solid rgba(255,255,255,0.25); /* Tambahan border putih transparan */
+        background-image: linear-gradient(90deg, #00C6FF 0%, #EE0979 100%); /* Gradient lebih terang */
+      }
+      .btn-primary:before {
+        content: '';
+        @apply absolute inset-0 block;
+        background: linear-gradient(to right, #EE0979, #FF6A00); /* Different gradient for hover state */
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .btn-primary:hover:before {
+        opacity: 1;
+        box-shadow: 0 0 20px 4px #EE0979, 0 0 40px 8px #00C6FF; /* Animasi glow saat hover */
+      }
+      .btn-primary span {
+        @apply relative z-10;
+      }
+      .btn-primary:hover {
+        box-shadow: 0 8px 25px rgba(0, 198, 255, 0.4), 0 -8px 25px rgba(238, 9, 121, 0.4); /* Stronger glow on hover */
+      }
+
+      /* Enhanced card-hover-effect for more modern feel with inner shadow and dynamic border */
+      .card-hover-effect {
+        @apply relative transition duration-300 ease-in-out transform
+               hover:scale-103 shadow-lg hover:shadow-2xl border border-slate-700
+               overflow-hidden rounded-xl; /* Ensure rounded-xl is always applied */
+        box-shadow: inset 0 0 15px rgba(0,0,0,0.3); /* Subtle inner shadow */
+        border-color: var(--card-border) !important;
+      }
+      .card-hover-effect:before {
+        content: '';
+        @apply absolute inset-0 block rounded-xl;
+        background: linear-gradient(to top right, rgba(0, 198, 255, 0.15), rgba(238, 9, 121, 0.15)); /* Slightly stronger gradient */
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        z-index: 0;
+      }
+      .card-hover-effect:hover:before {
+        opacity: 1;
+      }
+      .card-hover-effect > * { /* Apply relative z-index to direct children to keep content above pseudo-element */
+        @apply relative z-10;
+      }
+
+      /* Specific hover background and border for slate-700 cards */
+      .bg-slate-700.card-hover-effect:hover {
+        background-color: #3e4d5f; /* Slightly lighter slate for hover */
+        border-color: #00C6FF; /* Blue border on hover for contrast */
+        box-shadow: inset 0 0 25px rgba(0, 198, 255, 0.2), 0 10px 30px rgba(0,0,0,0.5); /* Enhanced shadow on hover */
+      }
+      /* Specific hover background and border for slate-800 cards */
+      .bg-slate-800.card-hover-effect:hover {
+        background-color: #2c3a4f; /* Slightly lighter slate for hover */
+        border-color: #EE0979; /* Pink border on hover for contrast */
+        box-shadow: inset 0 0 25px rgba(238, 9, 121, 0.2), 0 10px 30px rgba(0,0,0,0.5); /* Enhanced shadow on hover */
+      }
+
+      /* Subtle glow on focus for interactive elements */
+      .glow-focus:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.5), 0 0 10px rgba(0, 198, 255, 0.3); /* Blue glow with spread */
+      }
+
+      /* Hero section background with subtle pattern and stronger gradient */
+      .hero-bg {
+        background: var(--gradient-hero) !important;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Optional: Add a subtle SVG background pattern if desired */
+      .hero-bg::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.08; /* Slightly more visible */
+        background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 0h3v3H0V0zm3 3h3v3H3V3z'/%3E%3C/g%3E%3C/svg%3E");
+        pointer-events: none;
+        animation: backgroundPan 60s linear infinite; /* Slow, continuous movement */
+      }
+
+      /* Keyframe for background movement */
+      @keyframes backgroundPan {
+        from { background-position: 0% 0%; }
+        to { background-position: 100% 100%; }
+      }
+
+      /* FAQ specific styles */
+      .faq-item {
+        border-bottom: 1px solid #334155; /* slate-700 */
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        padding-left: 0.5rem; /* Tambahan agar isi tidak mepet ke border */
+        padding-right: 0.5rem;
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-item:hover {
+        background-color: #1e293b; /* slate-800 on hover */
+        border-color: #00C6FF; /* Blue border on hover for contrast */
+        box-shadow: 0 5px 15px rgba(0, 198, 255, 0.1); /* Subtle shadow on hover */
+      }
+      .faq-question {
+        cursor: pointer;
+        padding: 1rem 1.25rem; /* Tambahkan padding kiri dan kanan agar tidak mepet border */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: #E2E8F0; /* Brighter text for questions */
+        transition: color 0.3s ease;
+      }
+      .faq-item.active .faq-question {
+        color: #00C6FF; /* Blue text when active */
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out, padding-bottom 0.3s ease-out;
+        padding-bottom: 0;
+        color: #CBD5E1; /* Lighter text for answers */
+      }
+      .faq-item.active .faq-answer {
+        /* max-height: 200px;  Hapus baris ini agar script bisa mengatur tinggi dinamis */
+        padding-bottom: 1rem;
+      }
+      .faq-item.active .faq-icon {
+        transform: rotate(180deg);
+        color: #00C6FF; /* Blue icon when active */
+      }
+      .faq-icon {
+        transition: transform 0.3s ease-out, color 0.3s ease;
+        color: #94A3B8; /* Default icon color */
+      }
+
+      /* Mobile Nav Specifics */
+      .mobile-menu {
+        transition: transform 0.3s ease-out;
+        transform: translateX(100%);
+      }
+
+      /* Notification dropdown styling for both themes */
+      #notification-dropdown {
+        background-color: var(--card-bg) !important;
+        border-color: var(--card-border) !important;
+        color: var(--text-main) !important;
+      }
+      
+      #notification-dropdown .text-main {
+        color: var(--text-main) !important;
+      }
+      
+      #notification-dropdown .text-secondary {
+        color: var(--text-secondary) !important;
+      }
+      
+      #notification-dropdown .border-card-border {
+        border-color: var(--card-border) !important;
+      }
+      
+      #notification-dropdown .hover\:bg-secondary\/50:hover {
+        background-color: var(--bg-secondary) !important;
+        opacity: 0.5;
+      }
+      
+      /* Notification item hover effects */
+      .notification-item {
+        transition: background-color 0.2s ease;
+      }
+      
+      .notification-item:hover {
+        background-color: var(--bg-secondary) !important;
+        opacity: 0.7;
+      }
+      
+      /* Ensure text colors are always readable */
+      .notification-item .text-main {
+        color: var(--text-main) !important;
+      }
+      
+      .notification-item .text-secondary {
+        color: var(--text-secondary) !important;
+      }
+      .mobile-menu.active {
+        transform: translateX(0);
+      }
+      .overlay {
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 40; /* Below mobile-menu but above page content */
+      }
+
+      /* Back-to-top button */
+      #back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: linear-gradient(to right, #00C6FF, #EE0979);
+        color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 9999px; /* Full rounded */
+        box-shadow: 0 4px 12px rgba(0, 198, 255, 0.4);
+        display: none; /* Hidden by default */
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        z-index: 100;
+        cursor: pointer;
+      }
+      #back-to-top.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+      #back-to-top:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 6px 18px rgba(0, 198, 255, 0.6);
+      }
+
+      /* Optional: Particle container for JS particles */
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1; /* Below content, above hero-bg */
+      }
+      .bg-main { background-color: var(--bg-main) !important; }
+      .bg-secondary { background-color: var(--bg-secondary) !important; }
+      .card-bg { background-color: var(--card-bg) !important; }
+      .card-border { border-color: var(--card-border) !important; }
+      .text-main { color: var(--text-main) !important; }
+      .text-secondary { color: var(--text-secondary) !important; }
+      .team-name { color: #ef4444 !important; } /* merah Tailwind (red-500) */
+      .border-laut { border-color: #06b6d4 !important; }
+      /* Tambahan: Padding untuk semua tabel agar isi tidak mepet ke border */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body class="bg-main text-secondary">
+    <script>
+      if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+      }
+    </script>
+    <header class="flex justify-between items-center px-6 py-3 bg-secondary/90 backdrop-blur-sm shadow-lg fixed w-full top-0 z-50 border-b border-card-border">
+      <div class="flex items-center gap-3">
+        <div class="logo-container flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+          <div class="icon-container relative">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+              <i class="fas fa-microchip text-white text-sm"></i>
+            </div>
+            <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-400 to-purple-600 opacity-20 hover:opacity-40 transition-opacity duration-300"></div>
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-purple-600 hover:from-blue-300 hover:to-purple-500 transition-all duration-300">
+              Nusantara <span class="font-extrabold">Tech</span>
+            </span>
+          </h1>
+        </div>
+      </div>
+      <nav class="hidden md:flex space-x-1 text-sm md:text-base">
+        <a href="antares.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-home mr-2"></i> Beranda
+        </a>
+        <a href="layanan.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-cog mr-2"></i> Layanan
+        </a>
+        <a href="career.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-briefcase mr-2"></i> Karir
+        </a>
+        <a href="#tentang" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-info-circle mr-2"></i> Tentang Kami
+        </a>
+        <a href="#portfolio" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-folder-open mr-2"></i> Portfolio
+        </a>
+        <a href="tim.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-users mr-2"></i> Tim
+        </a>
+        <a href="#kontak" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-envelope mr-2"></i> Kontak
+        </a>
+      </nav>
+      <div class="flex items-center space-x-2">
+        <button id="theme-toggle" class="hover:text-blue-400 transition focus:outline-none glow-focus px-4 py-2">
+          <i class="fas fa-sun"></i>
+        </button>
+        <button id="notification-toggle" class="relative hover:text-blue-400 transition focus:outline-none glow-focus px-4 py-2">
+          <i class="fas fa-bell"></i>
+          <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">3</span>
+        </button>
+        <a href="settings.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-user-cog mr-2"></i> Pengaturan
+        </a>
+      </div>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-secondary hover:text-blue-400 text-2xl focus:outline-none glow-focus transition-transform hover:scale-110">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Notification Dropdown -->
+    <div id="notification-dropdown" class="fixed top-20 right-20 w-80 backdrop-blur-md shadow-xl rounded-lg border opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+      <div class="p-4 border-b">
+        <h3 class="text-main font-semibold">Notifications</h3>
+      </div>
+      <div class="max-h-64 overflow-y-auto">
+        <div class="p-3 border-b border-card-border/50 hover:bg-secondary/50 cursor-pointer notification-item">
+          <div class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+            <div class="flex-1">
+              <p class="text-main text-sm font-medium">Welcome to Nusantara Tech!</p>
+              <p class="text-secondary text-xs">Thank you for joining our platform.</p>
+              <p class="text-secondary text-xs mt-1">2 minutes ago</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-3 border-b border-card-border/50 hover:bg-secondary/50 cursor-pointer notification-item">
+          <div class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+            <div class="flex-1">
+              <p class="text-main text-sm font-medium">New service available</p>
+              <p class="text-secondary text-xs">Check out our latest IT solutions.</p>
+              <p class="text-secondary text-xs mt-1">1 hour ago</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-3 hover:bg-secondary/50 cursor-pointer notification-item">
+          <div class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
+            <div class="flex-1">
+              <p class="text-main text-sm font-medium">System maintenance</p>
+              <p class="text-secondary text-xs">Scheduled maintenance on Sunday.</p>
+              <p class="text-secondary text-xs mt-1">1 day ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-3 border-t border-card-border">
+        <a href="#" class="text-blue-400 hover:text-blue-300 text-sm">View all notifications</a>
+      </div>
+    </div>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"></div>
+
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-secondary/95 backdrop-blur-md shadow-xl p-6 z-50 md:hidden border-l border-card-border">
+      <div class="flex justify-end mb-8">
+        <button id="close-mobile-menu" class="text-secondary hover:text-blue-400 text-2xl focus:outline-none glow-focus transition-transform hover:scale-110">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-2 text-lg">
+        <a href="layanan.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-cog mr-3"></i>Layanan</a>
+        <a href="career.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-briefcase mr-3"></i>Karir</a>
+        <a href="settings.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-user-cog mr-3"></i>Pengaturan</a>
+        <a href="#tentang" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-info-circle mr-3"></i>Tentang Kami</a>
+        <a href="#pengaturan" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-user-cog mr-3"></i>Pengaturan Akun</a>
+        <button id="theme-toggle-mobile" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50 text-left focus:outline-none glow-focus" onclick="closeMobileMenu()">
+          <i class="fas fa-sun mr-3"></i> Ganti mode gelap/terang
+        </button>
+      </nav>
+    </div>
+
+    <section id="tentang" class="px-6 md:px-20 py-20 bg-main relative z-10">
+      <div class="max-w-4xl mx-auto">
+        <h3 class="text-3xl md:text-4xl font-bold mb-8 text-gradient text-center" data-aos="fade-up">Tentang Nusantara Tech</h3>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div data-aos="fade-right" data-aos-delay="100">
+            <p class="text-secondary leading-relaxed mb-4">
+              Nusantara Tech adalah perusahaan teknologi terkemuka yang berdedikasi untuk mendorong inovasi digital di seluruh Indonesia. Kami menyediakan solusi IT terintegrasi mulai dari pengembangan sistem, dukungan IT on-site, manajemen infrastruktur cloud, hingga program edukasi teknologi.
+            </p>
+            <p class="text-secondary leading-relaxed">
+              Dengan tim ahli yang berpengalaman dan pemahaman mendalam tentang kebutuhan pasar lokal, kami berkomitmen untuk membantu bisnis Anda beradaptasi dan berkembang di era digital. Visi kami adalah menjadi mitra teknologi pilihan utama, menghadirkan solusi yang efisien dan berkelanjutan untuk kemajuan Nusantara.
+            </p>
+          </div>
+          <div data-aos="fade-left" data-aos-delay="200">
+            <img src="layanan1.webp" alt="Inovasi Digital Nusantara" class="rounded-xl shadow-lg w-full h-auto object-cover">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="layanan" class="px-6 md:px-20 py-20 bg-secondary relative z-10">
+      <h3 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center" data-aos="fade-up">Layanan Unggulan Kami</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center" data-aos="zoom-in" data-aos-duration="600">
+          <i class="fas fa-network-wired text-blue-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-3">ISP & Network Infrastructure</h4>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Internet installation for homes, offices, schools, and industries</li>
+            <li>Internal ISP services with reliable high-speed bandwidth</li>
+            <li>Node and repeater expansion for limited coverage areas</li>
+            <li>Router, switch, hub, and server configuration</li>
+            <li>On-site maintenance and network monitoring</li>
+            <li>Free site survey</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center" data-aos="zoom-in" data-aos-delay="100" data-aos-duration="600">
+          <i class="fas fa-laptop-code text-blue-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-3">Website Development & Maintenance</h4>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Fully customized and structured professional websites</li>
+            <li>Responsive UI/UX design</li>
+            <li>Frontend & Backend Development (Full Stack)</li>
+            <li>Self-hosted web infrastructure (no third-party dependency)</li>
+            <li>Feature customization based on client needs</li>
+            <li>Quality Assurance (QA) testing prior to launch</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="600">
+          <i class="fas fa-paint-brush text-blue-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-3">Logo Design & Branding</h4>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Professional logo design tailored to business identity</li>
+            <li>Full branding packages (logo + visual identity kit)</li>
+            <li>Clean, modern, and scalable logo concepts</li>
+            <li>Delivered in high-resolution (PNG, SVG, PDF formats)</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="600">
+          <i class="fas fa-tools text-blue-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-3">On-Site IT Support & Troubleshooting</h4>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>On-location technical support and system repair</li>
+            <li>Server & device consultation and setup</li>
+            <li>Routine IT maintenance for businesses</li>
+            <li>Backup system setup and disaster recovery planning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="mengapa" class="px-6 md:px-20 py-20 bg-main relative z-10">
+      <h3 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center" data-aos="fade-up">Mengapa Memilih Nusantara Tech?</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
+        <div class="bg-secondary p-8 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-duration="700">
+          <i class="fas fa-lightbulb text-purple-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Inovasi Berkelanjutan</h4>
+          <p class="text-secondary text-sm">Kami selalu mengikuti tren teknologi terbaru untuk memberikan solusi yang relevan dan futuristik.</p>
+        </div>
+        <div class="bg-secondary p-8 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="100" data-aos-duration="700">
+          <i class="fas fa-users-cog text-purple-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Tim Ahli Berpengalaman</h4>
+          <p class="text-secondary text-sm">Didukung oleh tim profesional yang memiliki keahlian mendalam di berbagai bidang IT.</p>
+        </div>
+        <div class="bg-secondary p-8 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
+          <i class="fas fa-handshake text-purple-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Pendekatan Personal</h4>
+          <p class="text-secondary text-sm">Setiap proyek ditangani dengan perhatian khusus, memastikan solusi yang disesuaikan dengan kebutuhan unik Anda.</p>
+        </div>
+        <div class="bg-secondary p-8 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="300" data-aos-duration="700">
+          <i class="fas fa-chart-line text-purple-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Fokus pada Hasil</h4>
+          <p class="text-secondary text-sm">Kami berkomitmen untuk memberikan hasil yang terukur dan berdampak positif pada pertumbuhan bisnis Anda.</p>
+        </div>
+        <div class="bg-secondary p-8 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="400" data-aos-duration="700">
+          <i class="fas fa-dollar-sign text-purple-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Harga Kompetitif</h4>
+          <p class="text-secondary text-sm">Solusi berkualitas tinggi dengan struktur harga yang transparan dan kompetitif.</p>
+        </div>
+        <div class="bg-secondary p-8 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="500" data-aos-duration="700">
+          <i class="fas fa-star text-purple-400 text-4xl mb-4"></i>
+          <h4 class="text-xl font-semibold mb-2">Dukungan Purna Jual</h4>
+          <p class="text-secondary text-sm">Layanan dukungan yang responsif dan berkelanjutan setelah proyek selesai.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="px-6 md:px-20 py-20 bg-secondary relative z-10">
+      <h3 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center" data-aos="fade-up">Portofolio Klien Kami</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="bg-secondary p-6 rounded-lg shadow-lg card-hover-effect" data-aos="fade-up" data-aos-duration="700">
+          <p class="text-xl font-semibold mb-2 text-blue-300">PT Maju Bersama</p>
+          <p class="text-sm text-secondary">Pengembangan sistem internal & manajemen server</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-lg shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="100" data-aos-duration="700">
+          <p class="text-xl font-semibold mb-2 text-blue-300">Yayasan Pendidikan Cerdas</p>
+          <p class="text-sm text-secondary">Website company profile, CRM kustom & pelatihan IT</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-lg shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
+          <p class="text-xl font-semibold mb-2 text-blue-300">PT Agro Lestari</p>
+          <p class="text-sm text-secondary">Instalasi jaringan pabrik, server backup & keamanan data</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-lg shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="300" data-aos-duration="700">
+          <p class="text-xl font-semibold mb-2 text-blue-300">Kementerian Koperasi & UKM RI</p>
+          <p class="text-sm text-secondary">Pengembangan portal informasi UMKM daerah</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-lg shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="400" data-aos-duration="700">
+          <p class="text-xl font-semibold mb-2 text-blue-300">Institut Teknologi Nusantara</p>
+          <p class="text-sm text-secondary">Sistem informasi akademik & infrastruktur jaringan kampus</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-lg shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="500" data-aos-duration="700">
+          <p class="text-xl font-semibold mb-2 text-blue-300">Startup "Jelajah Kuliner"</p>
+          <p class="text-sm text-secondary">Pengembangan aplikasi mobile food delivery & backend</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimoni" class="px-6 md:px-20 py-20 bg-secondary relative z-10">
+      <h3 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center" data-aos="fade-up">Apa Kata Klien Kami</h3>
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="bg-secondary p-6 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-duration="700">
+          <p class="text-secondary italic mb-4 text-lg">"Nusantara Tech memberikan solusi IT yang sangat inovatif dan tepat sasaran. Tim mereka responsif dan sangat profesional. Kami sangat puas dengan hasil pengembangan sistem internal kami."</p>
+          <p class="font-semibold text-blue-400">- Ahmad Fauzi, IT Manager PT Maju Bersama</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="100" data-aos-duration="700">
+          <p class="text-secondary italic mb-4 text-lg">"Pelatihan IT dari Nusantara Tech sangat membantu tim kami meningkatkan skill digital. Materi disampaikan dengan jelas dan praktis. Sangat direkomendasikan!"</p>
+          <p class="font-semibold text-blue-400">- Dewi Lestari, Kepala HRD Yayasan Pendidikan Cerdas</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
+          <p class="text-secondary italic mb-4 text-lg">"Infrastruktur jaringan pabrik kami kini jauh lebih stabil dan aman berkat Nusantara Tech. Mereka bekerja dengan cepat dan efisien, minim gangguan operasional."</p>
+          <p class="font-semibold text-blue-400">- Chandra Gunawan, Direktur Operasional PT Agro Lestari</p>
+        </div>
+        <div class="bg-secondary p-6 rounded-xl shadow-lg card-hover-effect" data-aos="fade-up" data-aos-delay="300" data-aos-duration="700">
+          <p class="text-secondary italic mb-4 text-lg">"Nusantara Tech berhasil mewujudkan ide aplikasi kami menjadi produk yang fungsional dan menarik. Proses kolaborasi sangat menyenangkan dan hasilnya melebihi ekspektasi."</p>
+          <p class="font-semibold text-blue-400">- Maya Sari, Co-Founder Startup "Jelajah Kuliner"</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="px-6 md:px-20 py-20 bg-main relative z-10">
+      <h3 class="text-3xl md:text-4xl font-bold mb-12 text-gradient text-center" data-aos="fade-up">Pertanyaan yang Sering Diajukan (FAQ)</h3>
+      <div class="max-w-3xl mx-auto bg-secondary rounded-xl shadow-lg">
+        <div class="faq-item" data-aos="fade-up" data-aos-duration="700">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Apa saja layanan utama yang ditawarkan Nusantara Tech?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer text-secondary">
+            <p>Kami menawarkan pengembangan web & aplikasi, IT support & on-site services, cloud & server management, edukasi & pelatihan teknologi, desain grafis & branding, serta keamanan siber.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="700">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Bagaimana proses kerja sama dengan Nusantara Tech?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer text-secondary">
+            <p>Proses dimulai dengan konsultasi awal untuk memahami kebutuhan Anda, dilanjutkan dengan penyusunan proposal, tahap pengembangan/implementasi, pengujian, hingga dukungan purna jual.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Apakah Nusantara Tech melayani klien di luar Jakarta?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer text-secondary">
+            <p>Ya, kami melayani klien di seluruh Indonesia dan juga mancanegara, terutama untuk layanan yang dapat dilakukan secara remote seperti pengembangan sistem, cloud management, dan edukasi online.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="300" data-aos-duration="700">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Berapa lama waktu yang dibutuhkan untuk sebuah proyek?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer text-secondary">
+            <p>Waktu pengerjaan proyek sangat bervariasi tergantung pada kompleksitas dan skala proyek. Kami akan memberikan estimasi waktu yang jelas setelah memahami detail kebutuhan Anda dalam konsultasi awal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 md:px-20 py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-center text-white relative z-10">
+      <h3 class="text-4xl md:text-5xl font-bold mb-4 leading-tight" data-aos="fade-up">Siap Memulai Proyek Digital Anda?</h3>
+      <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">Jangan ragu untuk menghubungi kami untuk konsultasi gratis dan penawaran terbaik. Mari wujudkan visi digital Anda bersama.</p>
+      <a href="#kontak" class="bg-white text-blue-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" data-aos="zoom-in" data-aos-delay="200">Hubungi Kami Sekarang! <i class="fas fa-paper-plane ml-2"></i></a>
+    </section>
+
+    <section id="kontak" class="px-6 md:px-20 py-20 bg-secondary relative z-10">
+      <h3 class="text-3xl md:text-4xl font-bold mb-8 text-gradient text-center" data-aos="fade-up">Hubungi Kami</h3>
+      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+        <div data-aos="fade-right" data-aos-delay="100">
+          <p class="mb-6 text-secondary text-lg">Kami siap membantu mewujudkan proyek digital Anda. Jangan ragu untuk menghubungi kami melalui informasi di bawah ini atau kirimkan pesan langsung kepada kami.</p>
+          <ul class="text-secondary space-y-4 text-base">
+            <li><i class="fas fa-envelope text-blue-400 w-6"></i> Email: <a href="mailto:info@nusantaratech.co.id" class="text-blue-400 hover:underline">info@nusantaratech.co.id</a></li>
+            <li><i class="fab fa-whatsapp text-blue-400 w-6"></i> WhatsApp: <a href="https://wa.me/6281234567890" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">+62 812-3456-7890</a></li>
+            <li><i class="fas fa-map-marker-alt text-blue-400 w-6"></i> Alamat: Jakarta, Indonesia</li>
+            <li><i class="fas fa-phone text-blue-400 w-6"></i> Telepon: <a href="tel:+62211234567" class="text-blue-400 hover:underline">+62 21 1234 567</a></li>
+          </ul>
+          <div class="mt-10" data-aos="fade-up" data-aos-delay="200">
+            <h4 class="text-xl font-semibold mb-4 text-gradient">Ikuti Kami:</h4>
+            <div class="flex space-x-6 text-4xl">
+              <a href="#" class="text-secondary hover:text-blue-400 transition transform hover:scale-110"><i class="fab fa-facebook-square"></i></a>
+              <a href="#" class="text-secondary hover:text-blue-400 transition transform hover:scale-110"><i class="fab fa-instagram-square"></i></a>
+              <a href="#" class="text-secondary hover:text-blue-400 transition transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
+              <a href="#" class="text-secondary hover:text-blue-400 transition transform hover:scale-110"><i class="fab fa-twitter-square"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="bg-secondary p-8 rounded-xl shadow-lg" data-aos="fade-left" data-aos-delay="150">
+            <h4 class="text-2xl font-semibold text-gradient mb-6">Kirim Pesan Kepada Kami</h4>
+            <form class="space-y-4">
+                <div>
+                    <label for="nama" class="block text-secondary text-sm font-medium mb-2">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" class="w-full p-3 rounded-lg bg-slate-600 border border-slate-500 text-secondary focus:outline-none focus:border-blue-500" placeholder="Nama Anda">
+                </div>
+                <div>
+                    <label for="email" class="block text-secondary text-sm font-medium mb-2">Email</label>
+                    <input type="email" id="email" name="email" class="w-full p-3 rounded-lg bg-slate-600 border border-slate-500 text-secondary focus:outline-none focus:border-blue-500" placeholder="Email Anda">
+                </div>
+                <div>
+                    <label for="pesan" class="block text-secondary text-sm font-medium mb-2">Pesan Anda</label>
+                    <textarea id="pesan" name="pesan" rows="5" class="w-full p-3 rounded-lg bg-slate-600 border border-slate-500 text-secondary focus:outline-none focus:border-blue-500" placeholder="Tulis pesan Anda di sini..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary w-full flex items-center justify-center"><span>Kirim Pesan <i class="fas fa-paper-plane ml-2"></i></span></button>
+            </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section pengaturan akun di bawah ini dihapus seluruhnya agar tidak tampil di halaman utama -->
+
+    <footer class="text-center py-8 bg-main text-secondary relative z-10">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-3 gap-8 mb-8 text-left">
+          <div>
+            <h5 class="text-lg font-bold text-gradient mb-4">Nusantara Tech</h5>
+            <p class="text-sm text-secondary">Mitra terpercaya Anda dalam evolusi digital. Kami membangun solusi teknologi yang inovatif dan berkelanjutan untuk kemajuan Indonesia.</p>
+          </div>
+          <div>
+            <h5 class="text-lg font-bold text-gradient mb-4">Tautan Cepat</h5>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#tentang" class="text-secondary hover:text-blue-400 transition">Tentang Kami</a></li>
+              <li><a href="#layanan" class="text-secondary hover:text-blue-400 transition">Layanan</a></li>
+              <li><a href="#portfolio" class="text-secondary hover:text-blue-400 transition">Portfolio</a></li>
+              <li><a href="#tim" class="text-secondary hover:text-blue-400 transition">Tim Kami</a></li>
+              <li><a href="#kontak" class="text-secondary hover:text-blue-400 transition">Hubungi Kami</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="text-lg font-bold text-gradient mb-4">Layanan Lainnya</h5>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#layanan" class="text-secondary hover:text-blue-400 transition">Konsultasi IT</a></li>
+              <li><a href="#layanan" class="text-secondary hover:text-blue-400 transition">Pengembangan Sistem Kustom</a></li>
+              <li><a href="#layanan" class="text-secondary hover:text-blue-400 transition">Manajemen Jaringan</a></li>
+              <li><a href="#layanan" class="text-secondary hover:text-blue-400 transition">Audit Keamanan</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-card-border pt-6 mt-6">
+          <p>&copy; 2025 Nusantara Tech. All rights reserved.</p>
+          <p class="text-xs mt-2">Dibuat dengan <i class="fas fa-heart text-red-500"></i> oleh Tim Nusantara Tech.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back-to-top button -->
+    <button id="back-to-top" class="flex items-center justify-center">
+      <i class="fas fa-arrow-up mr-2"></i> Top
+    </button>
+
+    <!-- Account Navigation Button -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+      <div class="bg-secondary/90 backdrop-blur-sm border border-card-border rounded-full px-6 py-3 shadow-lg">
+        <span class="text-secondary text-sm">Tidak punya account? </span>
+        <a href="login.html" class="text-blue-400 hover:text-blue-300 font-semibold text-sm transition-colors duration-200">Silahkan daftar di sini</a>
+      </div>
+    </div>
+
+    <!-- Floating Shopping Cart Icon -->
+    <a href="order.html" class="fixed bottom-6 left-6 z-50 p-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 group">
+      <div class="relative">
+        <i class="fas fa-shopping-cart text-white text-2xl group-hover:text-blue-100 transition-colors duration-200"></i>
+        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-pulse flex items-center justify-center">
+          <span class="text-white text-xs font-bold">!</span>
+        </div>
+      </div>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+        easing: 'ease-out-back' // Added more dynamic easing
+      });
+
+      // FAQ Toggle Functionality
+      function toggleFAQ(element) {
+        const parent = element.closest('.faq-item');
+        parent.classList.toggle('active');
+        const answer = parent.querySelector('.faq-answer');
+        if (parent.classList.contains('active')) {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        } else {
+          answer.style.maxHeight = null;
+        }
+      }
+
+      // Mobile Menu Toggle Functionality
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+      const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+      function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        mobileMenuOverlay.classList.remove('pointer-events-none');
+        mobileMenuOverlay.classList.add('opacity-100');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+      }
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('opacity-100');
+        mobileMenuOverlay.classList.add('pointer-events-none');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+
+      mobileMenuButton.addEventListener('click', openMobileMenu);
+      closeMobileMenuButton.addEventListener('click', closeMobileMenu);
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu); // Close when clicking overlay
+
+      // THEME TOGGLE LOGIC
+      function setTheme(theme) {
+        if (theme === 'light') {
+          document.documentElement.classList.add('light');
+        } else {
+          document.documentElement.classList.remove('light');
+        }
+        localStorage.setItem('theme', theme);
+        updateThemeIcons(theme);
+      }
+      function toggleTheme() {
+        const isLight = document.documentElement.classList.contains('light');
+        setTheme(isLight ? 'dark' : 'light');
+      }
+      function updateThemeIcons(theme) {
+        const sunIcon = '<i class="fas fa-sun"></i>';
+        const moonIcon = '<i class="fas fa-moon"></i>';
+        document.getElementById('theme-toggle').innerHTML = theme === 'light' ? moonIcon : sunIcon;
+        document.getElementById('theme-toggle-mobile').innerHTML = theme === 'light' ? moonIcon + ' Ganti mode gelap/terang' : sunIcon + ' Ganti mode gelap/terang';
+      }
+      // On load, set theme from localStorage or system
+      (function() {
+        let theme = localStorage.getItem('theme');
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        setTheme(theme);
+      })();
+      // Attach event listeners
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        document.getElementById('theme-toggle-mobile').addEventListener('click', function() {
+          toggleTheme();
+          closeMobileMenu();
+        });
+
+        // Notification dropdown functionality
+        const notificationToggle = document.getElementById('notification-toggle');
+        const notificationDropdown = document.getElementById('notification-dropdown');
+        const notificationBadge = document.getElementById('notification-badge');
+
+        // Show notification badge
+        notificationBadge.classList.remove('hidden');
+
+        notificationToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isVisible = !notificationDropdown.classList.contains('opacity-0');
+          
+          if (!isVisible) {
+            notificationDropdown.classList.remove('opacity-0', 'pointer-events-none');
+            // Hide badge when notifications are viewed
+            notificationBadge.classList.add('hidden');
+          } else {
+            notificationDropdown.classList.add('opacity-0', 'pointer-events-none');
+          }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!notificationDropdown.contains(e.target) && !notificationToggle.contains(e.target)) {
+            notificationDropdown.classList.add('opacity-0', 'pointer-events-none');
+          }
+        });
+      });
+
+      // Back-to-top button functionality
+      const backToTopButton = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) { // Show button after scrolling 300px
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Optional: Particles.js initialization (requires particles.min.js to be linked)
+      /*
+      window.onload = function() {
+        if (typeof particlesJS !== 'undefined') {
+          particlesJS('particles-js', {
+            "particles": {
+              "number": {
+                "value": 80,
+                "density": {
+                  "enable": true,
+                  "value_area": 800
+                }
+              },
+              "color": {
+                "value": "#00C6FF" // Blue from gradient
+              },
+              "shape": {
+                "type": "circle",
+                "stroke": {
+                  "width": 0,
+                  "color": "#000000"
+                },
+                "polygon": {
+                  "nb_sides": 5
+                }
+              },
+              "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                  "enable": false,
+                  "speed": 1,
+                  "opacity_min": 0.1,
+                  "sync": false
+                }
+              },
+              "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                  "enable": false,
+                  "speed": 40,
+                  "size_min": 0.1,
+                  "sync": false
+                }
+              },
+              "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#EE0979", // Pink from gradient
+                "opacity": 0.4,
+                "width": 1
+              },
+              "move": {
+                "enable": true,
+                "speed": 6,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                  "enable": false,
+                  "rotateX": 600,
+                  "rotateY": 1200
+                }
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": true,
+                  "mode": "grab"
+                },
+                "onclick": {
+                  "enable": true,
+                  "mode": "push"
+                },
+                "resize": true
+              },
+              "modes": {
+                "grab": {
+                  "distance": 140,
+                  "line_linked": {
+                    "opacity": 1
+                  }
+                },
+                "bubble": {
+                  "distance": 400,
+                  "size": 40,
+                  "duration": 2,
+                  "opacity": 8,
+                  "speed": 3
+                },
+                "repulse": {
+                  "distance": 200,
+                  "duration": 0.4
+                },
+                "push": {
+                  "particles_nb": 4
+                },
+                "remove": {
+                  "particles_nb": 2
+                }
+              }
+            },
+            "retina_detect": true
+          });
+        }
+      };
+      */
+    </script>
+  </body>
+</html>

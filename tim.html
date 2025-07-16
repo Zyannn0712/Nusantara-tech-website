@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tim Kami - Nusantara Tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    html.light {
+      --bg-main: #f8fafc;
+      --bg-secondary: #e2e8f0;
+      --text-main: #1e293b;
+      --text-secondary: #334155;
+      --card-bg: #fff;
+      --card-border: #cbd5e1;
+    }
+    html:not(.light) {
+      --bg-main: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-main: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+    }
+    .bg-main { background-color: var(--bg-main) !important; }
+    .bg-secondary { background-color: var(--bg-secondary) !important; }
+    .card-bg { background-color: var(--card-bg) !important; }
+    .card-border { border-color: var(--card-border) !important; }
+    .text-main { color: var(--text-main) !important; }
+    .text-secondary { color: var(--text-secondary) !important; }
+    .btn-primary {
+      @apply px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105;
+      box-shadow: 0 5px 15px rgba(0, 198, 255, 0.2), 0 -5px 15px rgba(238, 9, 121, 0.2);
+    }
+    .btn-primary span { @apply relative z-10; }
+    .glow-focus:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.5), 0 0 10px rgba(0, 198, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-main text-secondary">
+  <header class="flex justify-between items-center px-6 py-4 bg-secondary/90 backdrop-blur-sm shadow-lg fixed w-full top-0 z-50 border-b border-card-border">
+    <div class="flex items-center gap-3">
+      <a href="antares.html" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+          <i class="fas fa-microchip text-white text-sm"></i>
+        </div>
+        <span class="text-xl font-bold text-main">Nusantara <span class="font-extrabold">Tech</span></span>
+      </a>
+    </div>
+    <nav class="hidden md:flex space-x-1 text-sm md:text-base">
+      <a href="antares.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-home mr-2"></i> Beranda
+      </a>
+      <a href="layanan.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-cog mr-2"></i> Layanan
+      </a>
+      <a href="career.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-briefcase mr-2"></i> Karir
+      </a>
+      <a href="#tentang" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-info-circle mr-2"></i> Tentang Kami
+      </a>
+      <a href="#portfolio" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-folder-open mr-2"></i> Portfolio
+      </a>
+      <a href="tim.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-users mr-2"></i> Tim
+      </a>
+      <a href="#kontak" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-envelope mr-2"></i> Kontak
+      </a>
+    </nav>
+    <div class="flex items-center space-x-2">
+      <button id="theme-toggle" class="hover:text-blue-400 transition focus:outline-none glow-focus px-4 py-2">
+        <i class="fas fa-sun"></i>
+      </button>
+      <a href="settings.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-user-cog mr-2"></i> Pengaturan
+      </a>
+    </div>
+    <div class="md:hidden">
+      <button id="mobile-menu-button" class="text-secondary hover:text-blue-400 text-2xl focus:outline-none glow-focus transition-transform hover:scale-110">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"></div>
+  <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-secondary/95 backdrop-blur-md shadow-xl p-6 z-50 md:hidden border-l border-card-border">
+    <div class="flex justify-end mb-8">
+      <button id="close-mobile-menu" class="text-secondary hover:text-blue-400 text-2xl focus:outline-none glow-focus transition-transform hover:scale-110">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col space-y-2 text-lg">
+      <a href="layanan.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-cog mr-3"></i>Layanan</a>
+      <a href="career.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-briefcase mr-3"></i>Karir</a>
+      <a href="settings.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-user-cog mr-3"></i>Pengaturan</a>
+      <a href="#tentang" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-info-circle mr-3"></i>Tentang Kami</a>
+      <a href="#portfolio" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-folder-open mr-3"></i>Portfolio</a>
+      <a href="tim.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-users mr-3"></i>Tim</a>
+      <a href="#kontak" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-envelope mr-3"></i>Kontak</a>
+      <button id="theme-toggle-mobile" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50 text-left focus:outline-none glow-focus" onclick="closeMobileMenu()">
+        <i class="fas fa-sun mr-3"></i> Ganti mode gelap/terang
+      </button>
+    </nav>
+  </div>
+  <main class="pt-24 pb-12 px-4 md:px-0 bg-main min-h-screen">
+    <!-- Hero Section -->
+    <section class="max-w-3xl mx-auto text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-gradient" style="background: linear-gradient(to right, #00C6FF, #EE0979); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Struktur Tim Kami</h1>
+      <p class="text-lg md:text-xl text-secondary mb-6">Kenali tim profesional kami yang siap mendukung kesuksesan digital Anda. Struktur dan anggota tim dapat Anda custom sesuai kebutuhan.</p>
+    </section>
+    <!-- Struktur Hierarki Tim (Grid Card) -->
+    <section class="max-w-5xl mx-auto mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- CEO -->
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <img src="profile1.jpeg" alt="Allen Whitemore" class="rounded-full w-32 h-32 object-cover border-4 border-laut mb-4">
+          <h3 class="text-xl font-bold team-name mb-1">Allen Whitemore</h3>
+          <p class="text-main font-semibold mb-1">Founder & CEO</p>
+          <p class="text-secondary text-sm">Visionary Strategist | Project Manager | Web Architecture Designer</p>
+        </div>
+        <!-- CTO -->
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <img src="profile2.jpeg" alt="Icha Chandra Setiawan" class="rounded-full w-32 h-32 object-cover border-4 border-laut mb-4">
+          <h3 class="text-xl font-bold team-name mb-1">Icha Chandra Setiawan</h3>
+          <p class="text-main font-semibold mb-1">Co-Founder & CTO</p>
+          <p class="text-secondary text-sm">Infrastructure Architect | Network Engineer | System Integrator</p>
+        </div>
+        <!-- COO -->
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <img src="profile3.jpeg" alt="Clara Putri Kusuma" class="rounded-full w-32 h-32 object-cover border-4 border-laut mb-4">
+          <h3 class="text-xl font-bold team-name mb-1">Clara Putri Kusuma</h3>
+          <p class="text-main font-semibold mb-1">Co-Founder & COO</p>
+          <p class="text-secondary text-sm">Field Operations Lead | Deployment Strategist | Workflow Engineer</p>
+        </div>
+        <!-- CWO -->
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <img src="profile4.jpeg" alt="Zacky Deandra Oktavian" class="rounded-full w-32 h-32 object-cover border-4 border-laut mb-4">
+          <h3 class="text-xl font-bold team-name mb-1">Zacky Deandra Oktavian</h3>
+          <p class="text-main font-semibold mb-1">Co-Founder & CWO</p>
+          <p class="text-secondary text-sm">Web Developer | Quality Assurance Lead | Data Center Support Specialist</p>
+        </div>
+      </div>
+    </section>
+    <div id="team-list" style="max-width:1200px;margin:1.5rem auto 0 auto;display:grid;grid-template-columns:repeat(1,1fr);gap:2rem;" class="md:grid-cols-2 lg:grid-cols-4"></div>
+  </main>
+  <!-- Card tambah anggota tim -->
+  <div id="add-member-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#1e293b;padding:2rem 2rem 1.5rem 2rem;border-radius:1.5rem;max-width:350px;width:90vw;box-shadow:0 2px 16px #0007;position:relative;">
+      <button onclick="closeAddMemberModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">&times;</button>
+      <div style="color:#fff;margin-bottom:0.5rem;font-weight:bold;font-size:1.1rem;">Tambah Struktur/Anggota Tim</div>
+      <form id="team-form" onsubmit="addTeamMember(event)">
+        <input id="team-nama" type="text" placeholder="Nama" required style="width:100%;margin-bottom:0.5rem;padding:0.5rem;border-radius:0.5rem;border:none;background:#fff;color:#1e293b;">
+        <input id="team-jabatan" type="text" placeholder="Jabatan" required style="width:100%;margin-bottom:0.5rem;padding:0.5rem;border-radius:0.5rem;border:none;background:#fff;color:#1e293b;">
+        <input id="team-foto" type="text" placeholder="URL Foto (opsional)" style="width:100%;margin-bottom:0.5rem;padding:0.5rem;border-radius:0.5rem;border:none;background:#fff;color:#1e293b;">
+        <button type="submit" style="background:#00C6FF;color:#fff;padding:0.5rem 1rem;border-radius:0.5rem;font-weight:bold;width:100%;">Simpan</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    // THEME TOGGLE LOGIC
+    function setTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.remove('light');
+      }
+      localStorage.setItem('theme', theme);
+      updateThemeIcons(theme);
+    }
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains('light');
+      setTheme(isLight ? 'dark' : 'light');
+    }
+    function updateThemeIcons(theme) {
+      const sunIcon = '<i class="fas fa-sun"></i>';
+      const moonIcon = '<i class="fas fa-moon"></i>';
+      document.getElementById('theme-toggle').innerHTML = theme === 'light' ? moonIcon : sunIcon;
+      document.getElementById('theme-toggle-mobile').innerHTML = theme === 'light' ? moonIcon + ' Ganti mode gelap/terang' : sunIcon + ' Ganti mode gelap/terang';
+    }
+    (function() {
+      let theme = localStorage.getItem('theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      setTheme(theme);
+    })();
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+      document.getElementById('theme-toggle-mobile').addEventListener('click', function() {
+        toggleTheme();
+        closeMobileMenu();
+      });
+    });
+    // Mobile Menu Toggle Functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    function openMobileMenu() {
+      mobileMenu.classList.add('active');
+      mobileMenuOverlay.classList.remove('pointer-events-none');
+      mobileMenuOverlay.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      mobileMenuOverlay.classList.remove('opacity-100');
+      mobileMenuOverlay.classList.add('pointer-events-none');
+      document.body.style.overflow = '';
+    }
+    mobileMenuButton.addEventListener('click', openMobileMenu);
+    closeMobileMenuButton.addEventListener('click', closeMobileMenu);
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+  </script>
+  <script>
+    function toggleTeamCustomizer() {
+      const panel = document.getElementById('team-customizer-panel');
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+    function getTeamData() {
+      return JSON.parse(localStorage.getItem('team-structure') || '[]');
+    }
+    function saveTeamData(data) {
+      localStorage.setItem('team-structure', JSON.stringify(data));
+    }
+    function renderTeam() {
+      const data = getTeamData();
+      let html = '';
+      data.forEach((member, idx) => {
+        html += `<div style='display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:#222e3a;padding:1.5rem;border-radius:1rem;position:relative;'>`;
+        if(member.foto) html += `<img src='${member.foto}' alt='${member.nama}' style='width:64px;height:64px;object-fit:cover;border-radius:50%;border:2px solid #00C6FF;'>`;
+        html += `<div style='text-align:center;'><div style='font-weight:bold;color:#00C6FF;'>${member.nama}</div><div style='color:#fff;'>${member.jabatan}</div></div>`;
+        html += `<button onclick='deleteTeamMember(${idx})' style='position:absolute;top:0.75rem;right:0.75rem;background:#ef4444;color:#fff;border:none;border-radius:0.5rem;padding:0.25rem 0.75rem;cursor:pointer;font-size:0.9rem;'>Hapus</button>`;
+        html += `</div>`;
+      });
+      // Card tambah anggota: isi sisa kolom di baris terakhir agar selalu 4 kolom per baris
+      const founderCount = 4;
+      const customCount = data.length;
+      const total = founderCount + customCount;
+      const col = 4;
+      let sisa;
+      if (customCount === 0) {
+        sisa = 4;
+      } else {
+        sisa = col - (total % col === 0 ? col : total % col);
+        if (sisa === 0) sisa = 1; // minimal 1 card '+'
+      }
+      for(let i=0;i<sisa;i++){
+        html += `<div onclick='openAddMemberModal()' style='display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;background:#222e3a;padding:1.5rem;border-radius:1rem;cursor:pointer;min-height:220px;transition:box-shadow 0.2s;' onmouseover="this.style.boxShadow='0 0 0 3px #00C6FF'" onmouseout="this.style.boxShadow='none'">
+          <div style='width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:#1e293b;border-radius:50%;border:2px dashed #00C6FF;font-size:2.5rem;color:#00C6FF;'>+</div>
+          <div style='color:#00C6FF;font-weight:bold;margin-top:0.5rem;'>Tambah Anggota</div>
+        </div>`;
+      }
+      const container = document.getElementById('team-list');
+      if(container) container.innerHTML = html;
+    }
+    function openAddMemberModal() {
+      document.getElementById('add-member-modal').style.display = 'flex';
+    }
+    function closeAddMemberModal() {
+      document.getElementById('add-member-modal').style.display = 'none';
+    }
+    function addTeamMember(e) {
+      e.preventDefault();
+      const nama = document.getElementById('team-nama').value.trim();
+      const jabatan = document.getElementById('team-jabatan').value.trim();
+      const foto = document.getElementById('team-foto').value.trim();
+      if(!nama || !jabatan) return;
+      const data = getTeamData();
+      data.push({nama, jabatan, foto});
+      saveTeamData(data);
+      renderTeam();
+      document.getElementById('team-form').reset();
+      closeAddMemberModal();
+    }
+    function deleteTeamMember(idx) {
+      const data = getTeamData();
+      data.splice(idx, 1);
+      saveTeamData(data);
+      renderTeam();
+    }
+    // Render saat halaman load
+    document.addEventListener('DOMContentLoaded', renderTeam);
+  </script>
+  <style>
+    .team-name { color: #ef4444 !important; }
+    .border-laut { border-color: #06b6d4 !important; }
+  </style>
+</body>
+</html> 

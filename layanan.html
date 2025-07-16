@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layanan - Nusantara Tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    html.light {
+      --bg-main: #f8fafc;
+      --bg-secondary: #e2e8f0;
+      --text-main: #1e293b;
+      --text-secondary: #334155;
+      --card-bg: #fff;
+      --card-border: #cbd5e1;
+    }
+    html:not(.light) {
+      --bg-main: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-main: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+    }
+    .bg-main { background-color: var(--bg-main) !important; }
+    .bg-secondary { background-color: var(--bg-secondary) !important; }
+    .card-bg { background-color: var(--card-bg) !important; }
+    .card-border { border-color: var(--card-border) !important; }
+    .text-main { color: var(--text-main) !important; }
+    .text-secondary { color: var(--text-secondary) !important; }
+    .btn-primary {
+      @apply relative inline-flex items-center justify-center overflow-hidden
+             px-10 py-3 rounded-full text-white font-semibold text-lg
+             bg-gradient-to-r from-blue-500 to-purple-600 /* Starting with a strong gradient */
+             shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105;
+      box-shadow: 0 5px 15px rgba(0, 198, 255, 0.2), 0 -5px 15px rgba(238, 9, 121, 0.2);
+      border: 2px solid rgba(255,255,255,0.25); /* Tambahan border putih transparan */
+      background-image: linear-gradient(90deg, #00C6FF 0%, #EE0979 100%); /* Gradient lebih terang */
+    }
+    .btn-primary:before {
+      content: '';
+      @apply absolute inset-0 block;
+      background: linear-gradient(to right, #EE0979, #FF6A00);
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .btn-primary:hover:before {
+      opacity: 1;
+      box-shadow: 0 0 20px 4px #EE0979, 0 0 40px 8px #00C6FF; /* Animasi glow saat hover */
+    }
+    .btn-primary span {
+      @apply relative z-10;
+    }
+    .glow-focus:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.5), 0 0 10px rgba(0, 198, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-main text-secondary">
+  <header class="flex justify-between items-center px-6 py-4 bg-secondary/90 backdrop-blur-sm shadow-lg fixed w-full top-0 z-50 border-b border-card-border">
+    <div class="flex items-center gap-3">
+      <a href="antares.html" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+          <i class="fas fa-microchip text-white text-sm"></i>
+        </div>
+        <span class="text-xl font-bold text-main">Nusantara <span class="font-extrabold">Tech</span></span>
+      </a>
+    </div>
+    <nav class="hidden md:flex space-x-1 text-sm md:text-base">
+      <a href="antares.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-home mr-2"></i> Beranda
+      </a>
+      <a href="layanan.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-cog mr-2"></i> Layanan
+      </a>
+      <a href="career.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-briefcase mr-2"></i> Karir
+      </a>
+      <a href="#tentang" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-info-circle mr-2"></i> Tentang Kami
+      </a>
+      <a href="#portfolio" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-folder-open mr-2"></i> Portfolio
+      </a>
+      <a href="#tim" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-users mr-2"></i> Tim
+      </a>
+      <a href="#kontak" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-envelope mr-2"></i> Kontak
+      </a>
+    </nav>
+    <div class="flex items-center space-x-2">
+      <button id="theme-toggle" class="hover:text-blue-400 transition focus:outline-none glow-focus px-4 py-2">
+        <i class="fas fa-sun"></i>
+      </button>
+      <a href="settings.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+        <i class="fas fa-user-cog mr-2"></i> Pengaturan
+      </a>
+    </div>
+    <div class="md:hidden">
+      <button id="mobile-menu-button" class="text-secondary hover:text-blue-400 text-2xl focus:outline-none glow-focus transition-transform hover:scale-110">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"></div>
+  <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-secondary/95 backdrop-blur-md shadow-xl p-6 z-50 md:hidden border-l border-card-border">
+    <div class="flex justify-end mb-8">
+      <button id="close-mobile-menu" class="text-secondary hover:text-blue-400 text-2xl focus:outline-none glow-focus transition-transform hover:scale-110">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col space-y-2 text-lg">
+      <a href="layanan.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-cog mr-3"></i>Layanan</a>
+      <a href="career.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-briefcase mr-3"></i>Karir</a>
+      <a href="#tentang" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-info-circle mr-3"></i>Tentang Kami</a>
+      <a href="#portfolio" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-folder-open mr-3"></i>Portfolio</a>
+      <a href="#tim" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-users mr-3"></i>Tim</a>
+      <a href="#kontak" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-envelope mr-3"></i>Kontak</a>
+      <button id="theme-toggle-mobile" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50 text-left focus:outline-none glow-focus" onclick="closeMobileMenu()">
+        <i class="fas fa-sun mr-3"></i> Ganti mode gelap/terang
+      </button>
+    </nav>
+  </div>
+  <main class="pt-24 pb-12 px-4 md:px-0 bg-main min-h-screen">
+    <!-- Hero Section -->
+    <section class="max-w-3xl mx-auto text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-gradient" style="background: linear-gradient(to right, #00C6FF, #EE0979); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Layanan Kami</h1>
+      <p class="text-lg md:text-xl text-secondary mb-6">Temukan solusi digital terbaik untuk kebutuhan bisnis Anda. Kami menawarkan layanan terintegrasi dari pengembangan web hingga keamanan siber.</p>
+    </section>
+    <!-- Daftar Layanan -->
+    <section class="max-w-6xl mx-auto mb-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <i class="fas fa-code text-blue-400 text-4xl mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2 text-main">Pengembangan Web & Aplikasi</h3>
+          <p class="text-secondary mb-4">Website dan aplikasi mobile kustom, responsif, aman, dan scalable sesuai kebutuhan bisnis Anda.</p>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Website Company Profile</li>
+            <li>Aplikasi Mobile (Android/iOS)</li>
+            <li>Integrasi API & Payment Gateway</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <i class="fas fa-headset text-blue-400 text-4xl mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2 text-main">IT Support & On-Site Services</h3>
+          <p class="text-secondary mb-4">Dukungan teknis profesional, instalasi perangkat keras/lunak, dan kunjungan teknisi ke lokasi Anda.</p>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>IT Maintenance</li>
+            <li>On-Site Troubleshooting</li>
+            <li>Instalasi Jaringan & Hardware</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <i class="fas fa-cloud text-blue-400 text-4xl mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2 text-main">Cloud & Server Management</h3>
+          <p class="text-secondary mb-4">Solusi hosting, manajemen server, dan migrasi cloud yang handal untuk data Anda.</p>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Cloud Migration</li>
+            <li>Server Setup & Maintenance</li>
+            <li>Backup & Recovery</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <i class="fas fa-graduation-cap text-blue-400 text-4xl mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2 text-main">Edukasi & Pelatihan Teknologi</h3>
+          <p class="text-secondary mb-4">Pelatihan IT, digital marketing, dan workshop teknologi untuk individu maupun korporasi.</p>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Pelatihan IT Dasar & Lanjutan</li>
+            <li>Workshop Digital Marketing</li>
+            <li>In-House Training</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <i class="fas fa-palette text-blue-400 text-4xl mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2 text-main">Desain Grafis & Branding</h3>
+          <p class="text-secondary mb-4">Desain logo, branding guideline, dan materi pemasaran digital yang menarik dan profesional.</p>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Desain Logo & Identitas Visual</li>
+            <li>Branding Kit</li>
+            <li>Materi Promosi Digital</li>
+          </ul>
+        </div>
+        <div class="card-bg border card-border rounded-xl p-8 shadow-lg flex flex-col items-center text-center">
+          <i class="fas fa-shield-alt text-blue-400 text-4xl mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2 text-main">Keamanan Siber</h3>
+          <p class="text-secondary mb-4">Solusi keamanan jaringan, audit, dan konsultasi untuk melindungi aset digital Anda.</p>
+          <ul class="text-secondary text-sm mb-4 list-disc list-inside text-left">
+            <li>Audit Keamanan Jaringan</li>
+            <li>Penetration Testing</li>
+            <li>Konsultasi & Awareness</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- CTA -->
+    <section class="max-w-3xl mx-auto text-center mt-16">
+      <h2 class="text-3xl font-bold mb-4 text-main">Siap Meningkatkan Bisnis Anda?</h2>
+      <p class="text-secondary mb-6">Hubungi kami untuk konsultasi gratis dan penawaran terbaik sesuai kebutuhan Anda.</p>
+      <a href="order.html" class="bg-white text-blue-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg" data-aos="zoom-in" data-aos-delay="200">Hubungi Kami Sekarang! <i class="fas fa-paper-plane ml-2"></i></a>
+    </section>
+  </main>
+  <footer class="text-center py-8 bg-main text-secondary border-t border-card-border mt-12">
+    <div class="container mx-auto px-6">
+      <p class="text-sm text-secondary">&copy; 2025 Nusantara Tech. All rights reserved.</p>
+      <p class="text-xs mt-2">Dibuat dengan <i class="fas fa-heart text-red-500"></i> oleh Tim Nusantara Tech.</p>
+    </div>
+  </footer>
+  <script>
+    // THEME TOGGLE LOGIC
+    function setTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.remove('light');
+      }
+      localStorage.setItem('theme', theme);
+      updateThemeIcons(theme);
+    }
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains('light');
+      setTheme(isLight ? 'dark' : 'light');
+    }
+    function updateThemeIcons(theme) {
+      const sunIcon = '<i class="fas fa-sun"></i>';
+      const moonIcon = '<i class="fas fa-moon"></i>';
+      document.getElementById('theme-toggle').innerHTML = theme === 'light' ? moonIcon : sunIcon;
+      document.getElementById('theme-toggle-mobile').innerHTML = theme === 'light' ? moonIcon + ' Ganti mode gelap/terang' : sunIcon + ' Ganti mode gelap/terang';
+    }
+    (function() {
+      let theme = localStorage.getItem('theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      setTheme(theme);
+    })();
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+      document.getElementById('theme-toggle-mobile').addEventListener('click', function() {
+        toggleTheme();
+        closeMobileMenu();
+      });
+    });
+    // Mobile Menu Toggle Functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    function openMobileMenu() {
+      mobileMenu.classList.add('active');
+      mobileMenuOverlay.classList.remove('pointer-events-none');
+      mobileMenuOverlay.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      mobileMenuOverlay.classList.remove('opacity-100');
+      mobileMenuOverlay.classList.add('pointer-events-none');
+      document.body.style.overflow = '';
+    }
+    mobileMenuButton.addEventListener('click', openMobileMenu);
+    closeMobileMenuButton.addEventListener('click', closeMobileMenu);
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+  </script>
+</body>
+</html> 

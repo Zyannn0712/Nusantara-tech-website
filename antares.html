@@ -304,11 +304,7 @@
     </style>
   </head>
   <body class="bg-main text-secondary">
-    <script>
-      if (localStorage.getItem('isLoggedIn') !== 'true') {
-        window.location.href = 'login.html';
-      }
-    </script>
+
     <header class="flex justify-between items-center px-6 py-3 bg-secondary/90 backdrop-blur-sm shadow-lg fixed w-full top-0 z-50 border-b border-card-border">
       <div class="flex items-center gap-3">
         <div class="logo-container flex items-center gap-2 hover:scale-105 transition-transform duration-300">
@@ -356,6 +352,9 @@
           <i class="fas fa-bell"></i>
           <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">3</span>
         </button>
+        <a href="login.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
+          <i class="fas fa-sign-in-alt mr-2"></i> Login
+        </a>
         <a href="settings.html" class="px-4 py-2 hover:text-blue-400 transition rounded-lg hover:bg-secondary/50 flex items-center">
           <i class="fas fa-user-cog mr-2"></i> Pengaturan
         </a>
@@ -420,9 +419,9 @@
       <nav class="flex flex-col space-y-2 text-lg">
         <a href="layanan.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-cog mr-3"></i>Layanan</a>
         <a href="career.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-briefcase mr-3"></i>Karir</a>
+        <a href="login.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-sign-in-alt mr-3"></i>Login</a>
         <a href="settings.html" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-user-cog mr-3"></i>Pengaturan</a>
         <a href="#tentang" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-info-circle mr-3"></i>Tentang Kami</a>
-        <a href="#pengaturan" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50" onclick="closeMobileMenu()"><i class="fas fa-user-cog mr-3"></i>Pengaturan Akun</a>
         <button id="theme-toggle-mobile" class="hover:text-blue-400 transition block py-3 px-4 rounded-lg hover:bg-secondary/50 text-left focus:outline-none glow-focus" onclick="closeMobileMenu()">
           <i class="fas fa-sun mr-3"></i> Ganti mode gelap/terang
         </button>

@@ -408,6 +408,15 @@
       </div>
     </div>
 
+    <!-- Test Website Notification -->
+    <div id="test-notification" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-full shadow-2xl z-[9999] flex items-center gap-3 animate-pulse">
+      <i class="fas fa-exclamation-triangle text-xl"></i>
+      <span class="font-bold text-lg">This website is under test</span>
+      <button onclick="closeTestNotification()" class="ml-4 hover:bg-white/20 rounded-full p-1 transition-colors">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"></div>
 
     <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-secondary/95 backdrop-blur-md shadow-xl p-6 z-50 md:hidden border-l border-card-border">
@@ -806,6 +815,16 @@
         }
         setTheme(theme);
       })();
+      // Test notification function
+      function closeTestNotification() {
+        const testNotification = document.getElementById('test-notification');
+        testNotification.style.opacity = '0';
+        testNotification.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        setTimeout(() => {
+          testNotification.style.display = 'none';
+        }, 300);
+      }
+
       // Attach event listeners
       document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
